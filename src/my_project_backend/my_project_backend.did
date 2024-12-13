@@ -1,3 +1,4 @@
 service : {
     "greet": (text) -> (text) query;
+    "calculate_currency_price": (nat, nat) -> (nat) query;
 }
