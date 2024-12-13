@@ -35,3 +35,9 @@ button[type="submit"] {
 #greeting:empty {
   display: none;
 }
+tr{
+  border: 1px solid black;
+}
+tr:hover{
+  background-color: lightblue;
+}

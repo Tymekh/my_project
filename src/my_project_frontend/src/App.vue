@@ -23,14 +23,16 @@ const calculateCost = async (iloscWaluty, index) => {
 
 const kupWalute = async () => {
   const koszta = await Promise.all(iloscWaluty.value.map((ilosc, index) => calculateCost(ilosc, index)))
-  console.log(koszta)
-
-  const sum = koszta.reduce(
-    (al, val) => {
-      al + val
+  
+  const innit = BigInt(0);
+  const sum = await koszta.reduce(
+    async (ac, val) => { 
+      ac = await ac;
+      return ac + val
     },
-    0n
-  )
+    innit,
+  );
+  document.getElementsByClassName("res")[0].innerHTML = `<br>Wszyskie waluty kosztują: ` + sum.toString();
   console.log(sum)
 }
 
@@ -43,7 +45,6 @@ getDataNBP();
 
 <template>
   <main>
-    {{ iloscWaluty }}
     <table>
       <tr>
         <th>Nazwa waluty</th>
@@ -57,8 +58,10 @@ getDataNBP();
         <td>{{ rate.code }}</td>
         <td>{{ rate.mid }}</td>
         <td><input type="number" @change="(e) => onChange(e, index)"/></td>
+        <td></td>
       </tr>
     </table>
     <button @click="kupWalute(index)">Kup</button>
+    <a class="res"></a>
   </main>
 </template>
